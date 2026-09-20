@@ -4,119 +4,111 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Amir! 🎉</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
       font-family: 'Poppins', sans-serif;
+      color: #fff;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: #fff;
-      overflow-x: hidden;
       padding: 20px;
+      overflow-x: hidden;
     }
-
-    /* Balloons Section */
-    .balloon-section {
+    .container {
+      width: 100%;
+      max-width: 400px;
       text-align: center;
-      margin-bottom: 15px;
     }
-    .balloon-title {
-      font-size: 0.9rem;
-      color: #ffeaa7;
-      margin-bottom: 10px;
-    }
-    .balloons-container {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-    }
-    .balloon {
-      width: 45px;
-      height: 60px;
-      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-      position: relative;
-      cursor: pointer;
-      animation: float 3s ease-in-out infinite alternate;
-      transition: transform 0.2s, opacity 0.2s;
-    }
-    .balloon::after {
-      content: "";
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 2px;
-      height: 15px;
-      background: rgba(255, 255, 255, 0.5);
-    }
-    .b1 { background: #ff7675; animation-delay: 0s; }
-    .b2 { background: #74b9ff; animation-delay: 0.5s; }
-    .b3 { background: #55efc4; animation-delay: 1s; }
-    .b4 { background: #fdcb6e; animation-delay: 1.5s; }
-    .b5 { background: #a29bfe; animation-delay: 2s; }
-
-    @keyframes float {
-      0% { transform: translateY(0px) rotate(-3deg); }
-      100% { transform: translateY(-12px) rotate(3deg); }
-    }
-
-    .balloon.popped {
-      transform: scale(1.6);
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .card {
+    .step {
+      display: none;
       background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 20px;
       padding: 30px 20px;
-      width: 100%;
-      max-width: 420px;
-      text-align: center;
       box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      animation: fadeIn 0.5s ease-in-out;
     }
-    h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.8rem;
-      color: #ff7675;
-      margin-bottom: 10px;
+    .step.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    p.sub {
-      font-size: 0.95rem;
-      color: #dcdde1;
-      margin-bottom: 25px;
+
+    /* Step 1: Gift Box */
+    .gift-box {
+      font-size: 80px;
+      cursor: pointer;
+      margin: 20px 0;
+      animation: bounce 1.5s infinite;
     }
-    .photos-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-bottom: 25px;
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
     }
+
+    /* Step 2: Cake & Candle */
+    .cake-container {
+      margin: 20px 0;
+      position: relative;
+    }
+    .cake { font-size: 90px; }
+    .candle {
+      font-size: 35px;
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+    }
+    .flame {
+      display: inline-block;
+      animation: flicker 0.5s infinite alternate;
+    }
+    @keyframes flicker {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0.7; transform: scale(1.2); }
+    }
+
+    /* Step 3: Photos */
     .photo-card {
       background: rgba(255, 255, 255, 0.1);
       border-radius: 12px;
       padding: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      margin-bottom: 15px;
     }
     .photo-card img {
       width: 100%;
-      height: 260px;
+      height: 250px;
       object-fit: cover;
       border-radius: 8px;
     }
-    .photo-card p {
-      font-size: 0.85rem;
-      margin-top: 8px;
-      color: #ffeaa7;
+
+    /* Step 4: Letter / Chitti */
+    .letter-box {
+      background: #ffeaa7;
+      color: #2d3436;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: left;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
     }
+    .letter-box h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: #e84393;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
     .btn {
       background: linear-gradient(45deg, #ff7675, #e84393);
       border: none;
@@ -127,129 +119,73 @@
       border-radius: 25px;
       cursor: pointer;
       box-shadow: 0 5px 15px rgba(232, 67, 147, 0.4);
-    }
-
-    /* Popup Modal Design */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(5px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 999;
-      padding: 20px;
-    }
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .modal-box {
-      background: linear-gradient(135deg, #ff7675, #e84393);
-      padding: 30px 20px;
-      border-radius: 20px;
-      text-align: center;
-      color: #fff;
-      max-width: 350px;
-      width: 100%;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-      transform: scale(0.7);
-      transition: transform 0.3s ease;
-    }
-    .modal-overlay.active .modal-box {
-      transform: scale(1);
-    }
-    .modal-box h2 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-    .modal-box p {
-      font-size: 1rem;
-      margin-bottom: 20px;
-      line-height: 1.4;
-    }
-    .close-btn {
-      background: #fff;
-      color: #e84393;
-      border: none;
-      padding: 8px 22px;
-      border-radius: 20px;
-      font-weight: 600;
-      cursor: pointer;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Balloons Section -->
-  <div class="balloon-section">
-    <p class="balloon-title">🎈 Balloons par tap karke fodo! 🎈</p>
-    <div class="balloons-container">
-      <div class="balloon b1" onclick="popBalloon(this)"></div>
-      <div class="balloon b2" onclick="popBalloon(this)"></div>
-      <div class="balloon b3" onclick="popBalloon(this)"></div>
-      <div class="balloon b4" onclick="popBalloon(this)"></div>
-      <div class="balloon b5" onclick="popBalloon(this)"></div>
+  <div class="container">
+
+    <!-- STEP 1: Gift Box -->
+    <div class="step active" id="step1">
+      <h1>A Special Gift For You! 🎁</h1>
+      <p style="margin-top: 10px; color: #dcdde1;">Gift kholne ke liye gift box par tap karein!</p>
+      <div class="gift-box" onclick="openGift()">🎁</div>
     </div>
-  </div>
 
-  <div class="card">
-    <h1>Happy Birthday Amir! 🎉</h1>
-    <p class="sub">Wishing you a day filled with laughter, joy, and success!</p>
-
-    <div class="photos-container">
-      <div class="photo-card">
-        <img src="./1.jpg" alt="Amir Photo 1">
-        <p>✨ Special Memories</p>
-      </div>
-      <div class="photo-card">
-        <img src="./2.jpg" alt="Amir Photo 2">
-        <p>🌟 Always Glowing</p>
-      </div>
-      <div class="photo-card">
-        <img src="./3.jpg" alt="Amir Photo 3">
-        <p>🎂 Wishing You Amazing Moments!</p>
+    <!-- STEP 2: Cake & Candle -->
+    <div class="step" id="step2">
+      <h1>Make a Wish! 🎂</h1>
+      <p style="margin-top: 10px; color: #dcdde1;">Candle (Mombatti) par tap karke ise bujhaayein!</p>
+      <div class="cake-container">
+        <div class="candle" id="candle" onclick="blowCandle()"><span class="flame" id="flame">🔥</span>🕯️</div>
+        <div class="cake">🎂</div>
       </div>
     </div>
 
-    <button class="btn" onclick="showSurprise()">Click for Surprise 🎁</button>
-  </div>
-
-  <!-- Custom Birthday Surprise Modal -->
-  <div class="modal-overlay" id="surpriseModal">
-    <div class="modal-box">
-      <h2>Surprise for Amir! 🎂</h2>
-      <p>May your special day bring you endless happiness, beautiful moments, and all the success in the world! 🎉✨</p>
-      <button class="close-btn" onclick="hideSurprise()">Close ❤️</button>
+    <!-- STEP 3: Photos Memory Gallery -->
+    <div class="step" id="step3">
+      <h1>Beautiful Memories ✨</h1>
+      <div style="margin: 20px 0;">
+        <div class="photo-card"><img src="./1.jpg" alt="Photo 1"></div>
+        <div class="photo-card"><img src="./2.jpg" alt="Photo 2"></div>
+        <div class="photo-card"><img src="./3.jpg" alt="Photo 3"></div>
+      </div>
+      <button class="btn" onclick="nextStep(4)">Aage Chitti Kholein ✉️</button>
     </div>
+
+    <!-- STEP 4: Letter / Chitti & Name Celebration -->
+    <div class="step" id="step4">
+      <div class="letter-box">
+        <h2>Happy Birthday Amir! 🎉</h2>
+        <p>Wishing you a day filled with love, laughter, and endless joy! May all your dreams come true this year and ahead. Stay blessed and keep shining always! 🌟❤️</p>
+      </div>
+      <button class="btn" onclick="celebrateAgain()">Replay Celebration 🎈</button>
+    </div>
+
   </div>
 
   <script>
-    function popBalloon(element) {
-      element.classList.add('popped');
-      confetti({
-        particleCount: 25,
-        spread: 40,
-        origin: { y: 0.2 }
-      });
+    function nextStep(stepNumber) {
+      document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+      document.getElementById('step' + stepNumber).classList.add('active');
     }
 
-    function showSurprise() {
-      document.getElementById('surpriseModal').classList.add('active');
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
+    function openGift() {
+      confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+      setTimeout(() => { nextStep(2); }, 600);
     }
 
-    function hideSurprise() {
-      document.getElementById('surpriseModal').classList.remove('active');
+    function blowCandle() {
+      document.getElementById('flame').style.display = 'none';
+      confetti({ particleCount: 150, spread: 100, origin: { y: 0.5 } });
+      setTimeout(() => { nextStep(3); }, 1000);
+    }
+
+    function celebrateAgain() {
+      document.getElementById('flame').style.display = 'inline-block';
+      nextStep(1);
     }
   </script>
 
