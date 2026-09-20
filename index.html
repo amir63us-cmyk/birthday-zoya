@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Amir! 🎉</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -18,7 +19,6 @@
       color: #fff;
       overflow-x: hidden;
       padding: 20px;
-      position: relative;
     }
 
     /* Balloons Section */
@@ -37,8 +37,8 @@
       gap: 15px;
     }
     .balloon {
-      width: 50px;
-      height: 65px;
+      width: 45px;
+      height: 60px;
       border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
       position: relative;
       cursor: pointer;
@@ -67,7 +67,7 @@
     }
 
     .balloon.popped {
-      transform: scale(1.5);
+      transform: scale(1.6);
       opacity: 0;
       pointer-events: none;
     }
@@ -128,6 +128,60 @@
       cursor: pointer;
       box-shadow: 0 5px 15px rgba(232, 67, 147, 0.4);
     }
+
+    /* Popup Modal Design */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 999;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-box {
+      background: linear-gradient(135deg, #ff7675, #e84393);
+      padding: 30px 20px;
+      border-radius: 20px;
+      text-align: center;
+      color: #fff;
+      max-width: 350px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      transform: scale(0.7);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.active .modal-box {
+      transform: scale(1);
+    }
+    .modal-box h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    .modal-box p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .close-btn {
+      background: #fff;
+      color: #e84393;
+      border: none;
+      padding: 8px 22px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -163,12 +217,39 @@
       </div>
     </div>
 
-    <button class="btn" onclick="alert('🎂 Happy Birthday Amir! Have an awesome day! 🎉')">Click for Surprise 🎁</button>
+    <button class="btn" onclick="showSurprise()">Click for Surprise 🎁</button>
+  </div>
+
+  <!-- Custom Birthday Surprise Modal -->
+  <div class="modal-overlay" id="surpriseModal">
+    <div class="modal-box">
+      <h2>Surprise for Amir! 🎂</h2>
+      <p>May your special day bring you endless happiness, beautiful moments, and all the success in the world! 🎉✨</p>
+      <button class="close-btn" onclick="hideSurprise()">Close ❤️</button>
+    </div>
   </div>
 
   <script>
     function popBalloon(element) {
       element.classList.add('popped');
+      confetti({
+        particleCount: 25,
+        spread: 40,
+        origin: { y: 0.2 }
+      });
+    }
+
+    function showSurprise() {
+      document.getElementById('surpriseModal').classList.add('active');
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+
+    function hideSurprise() {
+      document.getElementById('surpriseModal').classList.remove('active');
     }
   </script>
 
