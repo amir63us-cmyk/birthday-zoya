@@ -12,12 +12,66 @@
       font-family: 'Poppins', sans-serif;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       color: #fff;
       overflow-x: hidden;
       padding: 20px;
+      position: relative;
     }
+
+    /* Balloons Section */
+    .balloon-section {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .balloon-title {
+      font-size: 0.9rem;
+      color: #ffeaa7;
+      margin-bottom: 10px;
+    }
+    .balloons-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    .balloon {
+      width: 50px;
+      height: 65px;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      position: relative;
+      cursor: pointer;
+      animation: float 3s ease-in-out infinite alternate;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 15px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+    .b1 { background: #ff7675; animation-delay: 0s; }
+    .b2 { background: #74b9ff; animation-delay: 0.5s; }
+    .b3 { background: #55efc4; animation-delay: 1s; }
+    .b4 { background: #fdcb6e; animation-delay: 1.5s; }
+    .b5 { background: #a29bfe; animation-delay: 2s; }
+
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(-3deg); }
+      100% { transform: translateY(-12px) rotate(3deg); }
+    }
+
+    .balloon.popped {
+      transform: scale(1.5);
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .card {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(12px);
@@ -78,27 +132,45 @@
 </head>
 <body>
 
+  <!-- Balloons Section -->
+  <div class="balloon-section">
+    <p class="balloon-title">🎈 Balloons par tap karke fodo! 🎈</p>
+    <div class="balloons-container">
+      <div class="balloon b1" onclick="popBalloon(this)"></div>
+      <div class="balloon b2" onclick="popBalloon(this)"></div>
+      <div class="balloon b3" onclick="popBalloon(this)"></div>
+      <div class="balloon b4" onclick="popBalloon(this)"></div>
+      <div class="balloon b5" onclick="popBalloon(this)"></div>
+    </div>
+  </div>
+
   <div class="card">
     <h1>Happy Birthday Amir! 🎉</h1>
     <p class="sub">Wishing you a day filled with laughter, joy, and success!</p>
 
     <div class="photos-container">
       <div class="photo-card">
-        <img src="Scarlet moonlight turns silence into ..." alt="Amir Photo 1">
+        <img src="./1.jpg" alt="Amir Photo 1">
         <p>✨ Special Memories</p>
       </div>
       <div class="photo-card">
-        <img src="No reason to stay is the good reason..." alt="Amir Photo 2">
+        <img src="./2.jpg" alt="Amir Photo 2">
         <p>🌟 Always Glowing</p>
       </div>
       <div class="photo-card">
-        <img src="No reason to stay is the good reason..." alt="Amir Photo 3">
+        <img src="./3.jpg" alt="Amir Photo 3">
         <p>🎂 Wishing You Amazing Moments!</p>
       </div>
     </div>
 
     <button class="btn" onclick="alert('🎂 Happy Birthday Amir! Have an awesome day! 🎉')">Click for Surprise 🎁</button>
   </div>
+
+  <script>
+    function popBalloon(element) {
+      element.classList.add('popped');
+    }
+  </script>
 
 </body>
 </html>
