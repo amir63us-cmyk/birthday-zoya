@@ -1,65 +1,165 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Zoya!</title>
+  <title>Happy Birthday Zoya! 🎉</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #fff;
+      background: linear-gradient(135deg, #ffe6eb, #ffb3c6);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      text-align: center;
       overflow: hidden;
+      color: #4a4a4a;
     }
-    .card {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      padding: 30px 20px;
-      border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      max-width: 90%;
-      width: 350px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-      animation: pop 1s ease-in-out infinite alternate;
-    }
-    p {
-      font-size: 1.1rem;
-      line-height: 1.5;
-    }
-    .btn {
-      margin-top: 20px;
-      padding: 12px 25px;
-      background: #fff;
-      color: #ff4b2b;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-    @keyframes pop {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.05); }
-    }
+    .screen { display: none; width: 100%; max-width: 400px; padding: 20px; text-align: center; }
+    .screen.active { display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.5s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    
+    .gift-box { font-size: 80px; cursor: pointer; animation: bounce 1.5s infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    
+    .cake-container { position: relative; margin: 30px 0; }
+    .candles { display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; }
+    .candle-wrapper { cursor: pointer; }
+    .flame { width: 12px; height: 20px; background: orange; border-radius: 50% 50% 20% 20%; margin: 0 auto; animation: glow 0.5s infinite alternate; }
+    .flame.out { display: none; }
+    .stick { width: 10px; height: 35px; background: #ff4d6d; border-radius: 4px; }
+    .cake-base { width: 180px; height: 80px; background: #ff85a1; border-radius: 10px 10px 0 0; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+    @keyframes glow { from { opacity: 0.8; transform: scale(0.9); } to { opacity: 1; transform: scale(1.1); } }
+    
+    .polaroid { background: white; padding: 15px 15px 25px 15px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); width: 250px; cursor: pointer; transform: rotate(-2deg); }
+    .polaroid-img { width: 100%; height: 200px; background: #ffe6eb; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 50px; }
+    .counter { margin-top: 15px; font-weight: bold; color: #ff4d6d; }
+    
+    .envelope { width: 260px; height: 160px; background: #ff758f; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+    .letter { background: #fff0f3; padding: 20px; border-radius: 10px; border: 2px dashed #ff758f; text-align: left; width: 100%; font-size: 14px; line-height: 1.6; }
+    
+    .btn { margin-top: 20px; padding: 12px 25px; background: #ff4d6d; color: white; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(255,77,109,0.4); }
+    
+    .typewriter { border-right: 2px solid #ff4d6d; white-space: pre-wrap; word-wrap: break-word; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>🎉 Happy Birthday Zoya! 🎂</h1>
-    <p>Aapko Janamdin ki Bhot Bhot Mubarakbaad! ✨<br>May your year be filled with happiness, success, and endless joy!</p>
-    <button class="btn" onclick="alert('🎈 Wishing you the best day ever, Zoya! ✨')">Click for Surprise 🎉</button>
+
+  <!-- Screen 1: Gift -->
+  <div id="screen-gift" class="screen active">
+    <h2 style="margin-bottom: 20px;">A Special Surprise for Zoya! ✨</h2>
+    <div class="gift-box" onclick="showScreen('screen-cake')">🎁</div>
+    <p style="margin-top: 15px;">Tap the gift box to open!</p>
   </div>
+
+  <!-- Screen 2: Candles -->
+  <div id="screen-cake" class="screen">
+    <h3>Tap each candle to blow it out! 🎂</h3>
+    <div class="cake-container">
+      <div class="candles">
+        <div class="candle-wrapper" onclick="extinguish(this)"><div class="flame"></div><div class="stick"></div></div>
+        <div class="candle-wrapper" onclick="extinguish(this)"><div class="flame"></div><div class="stick"></div></div>
+        <div class="candle-wrapper" onclick="extinguish(this)"><div class="flame"></div><div class="stick"></div></div>
+        <div class="candle-wrapper" onclick="extinguish(this)"><div class="flame"></div><div class="stick"></div></div>
+      </div>
+      <div class="cake-base">Happy Birthday Zoya</div>
+    </div>
+  </div>
+
+  <!-- Screen 3: Photos -->
+  <div id="screen-photos" class="screen">
+    <div class="polaroid" onclick="nextPhoto()">
+      <div class="polaroid-img" id="photo-emoji">🌸</div>
+      <p id="photo-caption" style="margin-top: 10px; font-weight: 500;">Tap photo for next 📸</p>
+    </div>
+    <div class="counter" id="photo-counter">Photo 1 / 3</div>
+  </div>
+
+  <!-- Screen 4: Letter -->
+  <div id="screen-letter" class="screen">
+    <div id="env-box" class="envelope" onclick="openLetter()">💌</div>
+    <div id="letter-box" class="letter" style="display: none;">
+      <p>Dear Zoya,</p>
+      <p style="margin-top: 10px;">May your birthday be filled with endless smiles, laughter, and beautiful memories! Keep shining bright always. ✨💖</p>
+      <button class="btn" style="width: 100%; margin-top: 15px;" onclick="showScreen('screen-celebrate')">Final Surprise 🎉</button>
+    </div>
+  </div>
+
+  <!-- Screen 5: Celebration -->
+  <div id="screen-celebrate" class="screen">
+    <h1>🎉 Happy Birthday Zoya! 🎂</h1>
+    <p class="typewriter" id="typewriter-text" style="margin: 20px 0; font-size: 16px;"></p>
+    <button class="btn" onclick="restart()">Replay Surprise 🔄</button>
+  </div>
+
+  <script>
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if(id === 'screen-celebrate') startTypewriter();
+    }
+
+    let extinguished = 0;
+    function extinguish(el) {
+      const flame = el.querySelector('.flame');
+      if(!flame.classList.contains('out')) {
+        flame.classList.add('out');
+        extinguished++;
+        if(extinguished === 4) {
+          setTimeout(() => showScreen('screen-photos'), 800);
+        }
+      }
+    }
+
+    const photos = [
+      { emoji: '🌸', text: 'Beautiful Memories ✨' },
+      { emoji: '⭐', text: 'Shine Bright Always 🌟' },
+      { emoji: '💖', text: 'Best Wishes For You 🎂' }
+    ];
+    let photoIdx = 0;
+    function nextPhoto() {
+      photoIdx++;
+      if(photoIdx < photos.length) {
+        document.getElementById('photo-emoji').innerText = photos[photoIdx].emoji;
+        document.getElementById('photo-caption').innerText = photos[photoIdx].text;
+        document.getElementById('photo-counter').innerText = `Photo ${photoIdx + 1} / ${photos.length}`;
+      } else {
+        showScreen('screen-letter');
+      }
+    }
+
+    function openLetter() {
+      document.getElementById('env-box').style.display = 'none';
+      document.getElementById('letter-box').style.display = 'block';
+    }
+
+    function startTypewriter() {
+      const msg = "Wishing you a year filled with love, adventure, happiness, and all your heart's desires! Have a wonderful birthday! 🎈✨";
+      let i = 0;
+      const el = document.getElementById('typewriter-text');
+      el.innerHTML = '';
+      function type() {
+        if(i < msg.length) {
+          el.innerHTML += msg.charAt(i);
+          i++;
+          setTimeout(type, 50);
+        }
+      }
+      type();
+    }
+
+    function restart() {
+      extinguished = 0;
+      photoIdx = 0;
+      document.querySelectorAll('.flame').forEach(f => f.classList.remove('out'));
+      document.getElementById('photo-emoji').innerText = photos[0].emoji;
+      document.getElementById('photo-caption').innerText = photos[0].text;
+      document.getElementById('photo-counter').innerText = `Photo 1 / 3`;
+      document.getElementById('env-box').style.display = 'flex';
+      document.getElementById('letter-box').style.display = 'none';
+      showScreen('screen-gift');
+    }
+  </script>
 </body>
 </html>
