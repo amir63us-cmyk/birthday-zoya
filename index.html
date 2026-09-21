@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Zoya! 🎉</title>
+  <title>Happy Birthday Amir! 🎉</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -23,6 +23,26 @@
     .gift-box { font-size: 80px; cursor: pointer; animation: bounce 1.5s infinite; }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
     
+    /* Balloons Style */
+    .balloons-container { display: flex; justify-content: center; gap: 12px; margin: 25px 0; }
+    .balloon {
+      width: 45px; height: 60px;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      cursor: pointer; position: relative;
+      animation: float 2.5s ease-in-out infinite alternate;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .balloon::after {
+      content: ""; position: absolute; bottom: -8px; left: 50%;
+      transform: translateX(-50%); width: 2px; height: 12px; background: rgba(0,0,0,0.2);
+    }
+    .b1 { background: #ff4d6d; animation-delay: 0s; }
+    .b2 { background: #4ea8de; animation-delay: 0.4s; }
+    .b3 { background: #70e000; animation-delay: 0.8s; }
+    .b4 { background: #ffb703; animation-delay: 1.2s; }
+    @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-12px); } }
+    .balloon.popped { transform: scale(1.6); opacity: 0; pointer-events: none; }
+
     .cake-container { position: relative; margin: 30px 0; }
     .candles { display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; }
     .candle-wrapper { cursor: pointer; }
@@ -32,15 +52,14 @@
     .cake-base { width: 180px; height: 80px; background: #ff85a1; border-radius: 10px 10px 0 0; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
     @keyframes glow { from { opacity: 0.8; transform: scale(0.9); } to { opacity: 1; transform: scale(1.1); } }
     
-    .polaroid { background: white; padding: 15px 15px 25px 15px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); width: 250px; cursor: pointer; transform: rotate(-2deg); }
-    .polaroid-img { width: 100%; height: 200px; background: #ffe6eb; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 50px; }
+    .polaroid { background: white; padding: 12px 12px 20px 12px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); width: 260px; cursor: pointer; }
+    .polaroid-img { width: 100%; height: 220px; object-fit: cover; border-radius: 6px; }
     .counter { margin-top: 15px; font-weight: bold; color: #ff4d6d; }
     
     .envelope { width: 260px; height: 160px; background: #ff758f; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
     .letter { background: #fff0f3; padding: 20px; border-radius: 10px; border: 2px dashed #ff758f; text-align: left; width: 100%; font-size: 14px; line-height: 1.6; }
     
     .btn { margin-top: 20px; padding: 12px 25px; background: #ff4d6d; color: white; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(255,77,109,0.4); }
-    
     .typewriter { border-right: 2px solid #ff4d6d; white-space: pre-wrap; word-wrap: break-word; }
   </style>
 </head>
@@ -48,12 +67,24 @@
 
   <!-- Screen 1: Gift -->
   <div id="screen-gift" class="screen active">
-    <h2 style="margin-bottom: 20px;">A Special Surprise for Zoya! ✨</h2>
-    <div class="gift-box" onclick="showScreen('screen-cake')">🎁</div>
+    <!-- NAAM CHANGE HERE -->
+    <h2 style="margin-bottom: 20px;">A Special Surprise for Amir! ✨</h2>
+    <div class="gift-box" onclick="showScreen('screen-balloons')">🎁</div>
     <p style="margin-top: 15px;">Tap the gift box to open!</p>
   </div>
 
-  <!-- Screen 2: Candles -->
+  <!-- Screen 2: Balloons -->
+  <div id="screen-balloons" class="screen">
+    <h3>Tap each balloon to pop it! 🎈</h3>
+    <div class="balloons-container">
+      <div class="balloon b1" onclick="popBalloon(this)"></div>
+      <div class="balloon b2" onclick="popBalloon(this)"></div>
+      <div class="balloon b3" onclick="popBalloon(this)"></div>
+      <div class="balloon b4" onclick="popBalloon(this)"></div>
+    </div>
+  </div>
+
+  <!-- Screen 3: Candles -->
   <div id="screen-cake" class="screen">
     <h3>Tap each candle to blow it out! 🎂</h3>
     <div class="cake-container">
@@ -63,32 +94,35 @@
         <div class="candle-wrapper" onclick="extinguish(this)"><div class="flame"></div><div class="stick"></div></div>
         <div class="candle-wrapper" onclick="extinguish(this)"><div class="flame"></div><div class="stick"></div></div>
       </div>
-      <div class="cake-base">Happy Birthday Zoya</div>
+      <!-- NAAM CHANGE HERE -->
+      <div class="cake-base">Happy Birthday Amir</div>
     </div>
   </div>
 
-  <!-- Screen 3: Photos -->
+  <!-- Screen 4: Photos -->
   <div id="screen-photos" class="screen">
     <div class="polaroid" onclick="nextPhoto()">
-      <div class="polaroid-img" id="photo-emoji">🌸</div>
+      <img id="photo-img" class="polaroid-img" src="./1.jpg" alt="Memory">
       <p id="photo-caption" style="margin-top: 10px; font-weight: 500;">Tap photo for next 📸</p>
     </div>
     <div class="counter" id="photo-counter">Photo 1 / 3</div>
   </div>
 
-  <!-- Screen 4: Letter -->
+  <!-- Screen 5: Letter -->
   <div id="screen-letter" class="screen">
     <div id="env-box" class="envelope" onclick="openLetter()">💌</div>
     <div id="letter-box" class="letter" style="display: none;">
-      <p>Dear Zoya,</p>
+      <!-- NAAM CHANGE HERE -->
+      <p>Dear Amir,</p>
       <p style="margin-top: 10px;">May your birthday be filled with endless smiles, laughter, and beautiful memories! Keep shining bright always. ✨💖</p>
       <button class="btn" style="width: 100%; margin-top: 15px;" onclick="showScreen('screen-celebrate')">Final Surprise 🎉</button>
     </div>
   </div>
 
-  <!-- Screen 5: Celebration -->
+  <!-- Screen 6: Celebration -->
   <div id="screen-celebrate" class="screen">
-    <h1>🎉 Happy Birthday Zoya! 🎂</h1>
+    <!-- NAAM CHANGE HERE -->
+    <h1>🎉 Happy Birthday Amir! 🎂</h1>
     <p class="typewriter" id="typewriter-text" style="margin: 20px 0; font-size: 16px;"></p>
     <button class="btn" onclick="restart()">Replay Surprise 🔄</button>
   </div>
@@ -98,6 +132,17 @@
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
       if(id === 'screen-celebrate') startTypewriter();
+    }
+
+    let balloonsPopped = 0;
+    function popBalloon(el) {
+      if(!el.classList.contains('popped')) {
+        el.classList.add('popped');
+        balloonsPopped++;
+        if(balloonsPopped === 4) {
+          setTimeout(() => showScreen('screen-cake'), 600);
+        }
+      }
     }
 
     let extinguished = 0;
@@ -112,16 +157,17 @@
       }
     }
 
+    /* PHOTOS ADD HERE (Apni photo ke naam paste karein) */
     const photos = [
-      { emoji: '🌸', text: 'Beautiful Memories ✨' },
-      { emoji: '⭐', text: 'Shine Bright Always 🌟' },
-      { emoji: '💖', text: 'Best Wishes For You 🎂' }
+      { url: './1.jpg', text: 'Beautiful Memories ✨' },
+      { url: './2.jpg', text: 'Shine Bright Always 🌟' },
+      { url: './3.jpg', text: 'Best Wishes For You 🎂' }
     ];
     let photoIdx = 0;
     function nextPhoto() {
       photoIdx++;
       if(photoIdx < photos.length) {
-        document.getElementById('photo-emoji').innerText = photos[photoIdx].emoji;
+        document.getElementById('photo-img').src = photos[photoIdx].url;
         document.getElementById('photo-caption').innerText = photos[photoIdx].text;
         document.getElementById('photo-counter').innerText = `Photo ${photoIdx + 1} / ${photos.length}`;
       } else {
@@ -150,10 +196,12 @@
     }
 
     function restart() {
+      balloonsPopped = 0;
       extinguished = 0;
       photoIdx = 0;
+      document.querySelectorAll('.balloon').forEach(b => b.classList.remove('popped'));
       document.querySelectorAll('.flame').forEach(f => f.classList.remove('out'));
-      document.getElementById('photo-emoji').innerText = photos[0].emoji;
+      document.getElementById('photo-img').src = photos[0].url;
       document.getElementById('photo-caption').innerText = photos[0].text;
       document.getElementById('photo-counter').innerText = `Photo 1 / 3`;
       document.getElementById('env-box').style.display = 'flex';
