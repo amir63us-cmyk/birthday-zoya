@@ -4,340 +4,449 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Princess ✨</title>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
     
     body {
-      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%);
+      background: radial-gradient(circle at center, #2b1055 0%, #7597de 50%, #0f0c29 100%);
       font-family: 'Poppins', sans-serif;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      color: #4a3e3d;
+      color: #fff;
     }
 
     /* Floating Particles Background */
-    .bg-hearts {
+    #particles-canvas {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .heart-particle {
-      position: absolute;
-      font-size: 18px;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.7;
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1;
     }
 
+    /* Screen Management */
     .screen {
       display: none;
       width: 100%;
-      max-width: 420px;
-      padding: 25px;
+      max-width: 440px;
+      padding: 30px 20px;
       text-align: center;
       min-height: 100vh;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 10;
+      position: relative;
     }
     .screen.active {
       display: flex;
-      animation: zoomIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: magicFade 0.9s ease-out forwards;
     }
-    @keyframes zoomIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
+    @keyframes magicFade {
+      0% { opacity: 0; transform: scale(0.85) translateY(20px); filter: blur(10px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
     }
 
-    /* Titles */
-    .title-main {
+    .title-gold {
       font-family: 'Dancing Script', cursive;
       font-size: 42px;
-      color: #ff3366;
-      text-shadow: 2px 2px 10px rgba(255, 51, 102, 0.2);
-      margin-bottom: 10px;
+      background: linear-gradient(45deg, #ffeaa7, #fdcb6e, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(253, 203, 110, 0.4);
+      margin-bottom: 8px;
     }
-    .subtitle {
+    .subtitle-light {
       font-family: 'Caveat', cursive;
-      font-size: 26px;
-      color: #6c5ce7;
-      margin-bottom: 20px;
+      font-size: 24px;
+      color: #dfe6e9;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
     }
 
-    /* Stage 1: Gift Box */
-    .gift-box {
-      font-size: 90px;
+    /* Stage 1: Wax Seal Envelope */
+    .envelope-wrapper {
+      position: relative;
+      width: 260px;
+      height: 180px;
+      background: linear-gradient(135deg, #ff7675, #d63031);
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
-      animation: bounce 1.5s infinite alternate;
-      transition: transform 0.3s;
-      user-select: none;
+      border: 2px solid rgba(255,255,255,0.2);
     }
-    .gift-box:hover { transform: scale(1.15); }
-    @keyframes bounce {
-      from { transform: translateY(0); }
-      to { transform: translateY(-20px); }
+    .wax-seal {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #d63031, #801313);
+      border-radius: 50%;
+      border: 3px dashed #ff7675;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      animation: pulseGlow 2s infinite alternate;
+    }
+    @keyframes pulseGlow {
+      0% { transform: scale(1); box-shadow: 0 0 15px rgba(214, 48, 49, 0.6); }
+      100% { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 118, 117, 0.9); }
     }
 
-    /* Stage 2: Birthday Cake */
+    /* Stage 2: Key & Lock */
+    .lock-box {
+      font-size: 80px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 20px #fdcb6e);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .key-btn {
+      background: linear-gradient(45deg, #fdcb6e, #e17055);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 30px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(225, 112, 85, 0.5);
+      transition: transform 0.2s;
+    }
+    .key-btn:hover { transform: scale(1.08); }
+
+    /* Stage 3: Multi-Layer Cake */
     .cake-container {
       position: relative;
       width: 220px;
-      height: 180px;
-      margin: 25px 0;
+      height: 170px;
+      margin: 20px 0;
     }
-    .candles {
+    .candles-list {
       display: flex;
       justify-content: center;
-      gap: 12px;
+      gap: 15px;
       position: absolute;
-      top: -15px;
+      top: -20px;
       width: 100%;
-      z-index: 2;
+      z-index: 5;
     }
-    .candle { cursor: pointer; display: flex; flex-direction: column; align-items: center; }
-    .flame {
-      width: 10px;
-      height: 16px;
-      background: linear-gradient(to top, #ff9000, #ffee00);
+    .candle-item { cursor: pointer; display: flex; flex-direction: column; align-items: center; }
+    .flame-light {
+      width: 12px; height: 18px;
+      background: linear-gradient(to top, #ff7675, #ffeaa7);
       border-radius: 50% 50% 20% 20%;
-      box-shadow: 0 0 12px #ff9000;
-      animation: flicker 0.5s infinite alternate;
+      box-shadow: 0 0 15px #ffeaa7, 0 0 25px #ff7675;
+      animation: flicker 0.6s infinite alternate;
     }
-    .flame.off { display: none; }
-    .stick { width: 8px; height: 30px; background: linear-gradient(#fd79a8, #e84393); border-radius: 4px; }
+    .flame-light.off { display: none; }
+    .candle-stick { width: 8px; height: 35px; background: linear-gradient(#a29bfe, #6c5ce7); border-radius: 4px; }
     @keyframes flicker {
-      from { opacity: 0.8; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1.15); }
+      from { transform: scale(0.9); opacity: 0.8; }
+      to { transform: scale(1.15); opacity: 1; }
     }
-    .cake-layer-top {
-      width: 150px; height: 60px; background: #ffeaa7; border-radius: 15px 15px 0 0; margin: 0 auto;
-      border-bottom: 4px solid #fdcb6e; position: relative;
+    .cake-layer-top { width: 140px; height: 50px; background: #fd79a8; border-radius: 12px 12px 0 0; margin: 0 auto; }
+    .cake-layer-mid { width: 180px; height: 55px; background: #ffeaa7; border-radius: 8px; margin: 0 auto; }
+    .cake-layer-base { width: 220px; height: 60px; background: #6c5ce7; border-radius: 0 0 12px 12px; margin: 0 auto; box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+
+    /* Stage 4: Crystal Ball */
+    .crystal-orb {
+      width: 160px; height: 160px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(162, 155, 254, 0.4), rgba(108, 92, 231, 0.9));
+      border-radius: 50%;
+      box-shadow: 0 0 40px rgba(162, 155, 254, 0.8), inset 0 0 20px rgba(255,255,255,0.6);
+      display: flex; justify-content: center; align-items: center;
+      cursor: pointer; margin: 20px 0; transition: transform 0.3s;
     }
-    .cake-layer-bottom {
-      width: 190px; height: 80px; background: #ff7675; border-radius: 15px; margin: 0 auto;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    .crystal-orb:hover { transform: scale(1.08) rotate(5deg); }
+    .wish-text-box {
+      min-height: 70px;
+      font-family: 'Caveat', cursive;
+      font-size: 26px;
+      color: #ffeaa7;
+      padding: 0 10px;
     }
 
-    /* Stage 3: Music Player Card */
-    .music-card {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 20px;
-      width: 100%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      margin: 20px 0;
-      border: 1px solid rgba(255,255,255,0.8);
-    }
-    .btn-play {
-      background: linear-gradient(45deg, #ff3366, #ff6b81);
-      color: white; border: none; padding: 12px 30px;
-      border-radius: 25px; font-size: 16px; cursor: pointer;
-      box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
-      transition: all 0.3s;
-    }
-    .btn-play:hover { transform: scale(1.05); }
-
-    /* Stage 4: Polaroid Memory Gallery */
-    .gallery-stack {
-      position: relative;
-      width: 280px;
-      height: 320px;
-      margin: 10px auto;
-    }
-    .polaroid {
-      position: absolute;
-      background: white;
-      padding: 12px 12px 25px 12px;
-      border-radius: 10px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      width: 180px;
+    /* Stage 5: 3D Polaroids Gallery */
+    .polaroid-card {
+      background: #fff;
+      padding: 12px 12px 30px 12px;
+      border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      width: 240px;
+      color: #2d3436;
+      margin: 0 auto;
       cursor: pointer;
-      transition: all 0.4s ease;
+      transition: transform 0.5s ease;
     }
-    .polaroid img { width: 100%; height: 180px; object-fit: cover; border-radius: 6px; }
-    .polaroid-caption { font-family: 'Caveat', cursive; font-size: 20px; color: #ff3366; margin-top: 8px; }
-    .pol-1 { top: 20px; left: 10px; transform: rotate(-8deg); z-index: 1; }
-    .pol-2 { top: 0px; left: 50px; transform: rotate(3deg); z-index: 2; }
-    .pol-3 { top: 30px; left: 90px; transform: rotate(10deg); z-index: 1; }
-    .polaroid:hover { z-index: 10; transform: scale(1.1) rotate(0deg); }
+    .polaroid-card img { width: 100%; height: 210px; object-fit: cover; border-radius: 8px; }
+    .polaroid-caption { font-family: 'Caveat', cursive; font-size: 22px; color: #d63031; margin-top: 10px; }
 
-    /* Stage 5: Wax Sealed Letter */
-    .letter-box {
-      background: #fffdf9;
-      padding: 30px 25px;
+    /* Stage 6: Vinyl Record Player */
+    .vinyl-wrapper {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, #222 30%, #111 70%, #000 100%);
+      border-radius: 50%;
+      border: 8px solid #333;
+      display: flex; justify-content: center; align-items: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+      margin: 20px 0;
+      position: relative;
+    }
+    .vinyl-wrapper.spinning { animation: spin 4s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .vinyl-center {
+      width: 70px; height: 70px; background: #d63031; border-radius: 50%;
+      border: 4px solid #ffeaa7; display: flex; justify-content: center; align-items: center; font-size: 20px;
+    }
+
+    /* Stage 7: Grand Letter Scroll */
+    .scroll-letter {
+      background: linear-gradient(135deg, #fffdf9 0%, #fbe3e8 100%);
+      padding: 30px 22px;
       border-radius: 20px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      color: #4a3e3d;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
       text-align: left;
       line-height: 1.8;
-      color: #5d4037;
-      border: 2px dashed #f8c291;
-      position: relative;
+      border: 2px solid #ffd1d8;
     }
-    .letter-box h3 { font-family: 'Dancing Script', cursive; font-size: 38px; color: #e84393; text-align: center; margin-bottom: 10px; }
-    .letter-box p { font-size: 15px; margin-bottom: 12px; }
-    .signature { text-align: right; font-family: 'Caveat', cursive; font-size: 26px; color: #e84393; font-weight: bold; margin-top: 15px; }
+    .scroll-letter h2 { font-family: 'Playfair Display', serif; color: #d63031; font-size: 32px; text-align: center; margin-bottom: 12px; }
+    .scroll-letter p { font-size: 15px; margin-bottom: 12px; }
+    .from-sign { text-align: right; font-family: 'Caveat', cursive; font-size: 28px; color: #d63031; font-weight: bold; margin-top: 15px; }
 
-    /* Common Button Style */
-    .btn-next {
-      margin-top: 20px;
-      padding: 10px 25px;
-      background: #6c5ce7;
-      color: white;
-      border: none;
-      border-radius: 20px;
+    /* Global Next Button */
+    .btn-global {
+      margin-top: 25px;
+      padding: 12px 30px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      border-radius: 25px;
       cursor: pointer;
-      font-size: 14px;
-      box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
-      transition: transform 0.2s;
+      font-size: 15px;
+      transition: all 0.3s;
     }
-    .btn-next:hover { transform: scale(1.05); }
+    .btn-global:hover { background: rgba(255,255,255,0.3); transform: translateY(-2px); }
   </style>
 </head>
 <body>
 
-  <!-- Floating Background Particles -->
-  <div class="bg-hearts" id="heartContainer"></div>
+  <!-- Background Particle Canvas -->
+  <canvas id="particles-canvas"></canvas>
 
-  <!-- STAGE 1: The Mystery Gift Box -->
+  <!-- STAGE 1: Wax-Sealed Envelope -->
   <div id="stage-1" class="screen active">
-    <div class="title-main">A Special Surprise ✨</div>
-    <div class="subtitle">Tap the gift box to open your surprise!</div>
-    <div class="gift-box" onclick="openGift()">🎁</div>
+    <div class="title-gold">Top Secret Surprise 👑</div>
+    <div class="subtitle-light">Tap the Wax Seal to Break & Open</div>
+    
+    <div class="envelope-wrapper" onclick="unlockStage(2)">
+      <div class="wax-seal">💌</div>
+    </div>
   </div>
 
-  <!-- STAGE 2: Make a Wish (Cake & Candles) -->
+  <!-- STAGE 2: Golden Magic Lock -->
   <div id="stage-2" class="screen">
-    <div class="title-main">Make a Wish! 🎂</div>
-    <div class="subtitle">Tap each candle to blow it out</div>
+    <div class="title-gold">Unlock The Magic 🔓</div>
+    <div class="subtitle-light">Tap the key to unlock your birthday world</div>
+    
+    <div class="lock-box" id="lockIcon">🔒</div>
+    <button class="key-btn" onclick="openLock()">🔑 Turn Golden Key</button>
+  </div>
+
+  <!-- STAGE 3: Multi-Layer Cake & Candle Blow -->
+  <div id="stage-3" class="screen">
+    <div class="title-gold">Make A Wish! 🎂</div>
+    <div class="subtitle-light">Tap each candle to blow it out</div>
     
     <div class="cake-container">
-      <div class="candles">
-        <div class="candle" onclick="blowCandle(this)"><div class="flame"></div><div class="stick"></div></div>
-        <div class="candle" onclick="blowCandle(this)"><div class="flame"></div><div class="stick"></div></div>
-        <div class="candle" onclick="blowCandle(this)"><div class="flame"></div><div class="stick"></div></div>
-        <div class="candle" onclick="blowCandle(this)"><div class="flame"></div><div class="stick"></div></div>
+      <div class="candles-list">
+        <div class="candle-item" onclick="extinguishCandle(this)"><div class="flame-light"></div><div class="candle-stick"></div></div>
+        <div class="candle-item" onclick="extinguishCandle(this)"><div class="flame-light"></div><div class="candle-stick"></div></div>
+        <div class="candle-item" onclick="extinguishCandle(this)"><div class="flame-light"></div><div class="candle-stick"></div></div>
+        <div class="candle-item" onclick="extinguishCandle(this)"><div class="flame-light"></div><div class="candle-stick"></div></div>
       </div>
       <div class="cake-layer-top"></div>
-      <div class="cake-layer-bottom"></div>
+      <div class="cake-layer-mid"></div>
+      <div class="cake-layer-base"></div>
     </div>
     
-    <div id="wishMessage" style="opacity: 0; transition: opacity 0.5s; font-family: 'Caveat', cursive; font-size: 24px; color: #ff3366; font-weight: bold;">
-      ✨ May all your dreams come true! ✨
+    <div id="cakeWishText" style="opacity: 0; transition: opacity 0.8s;" class="subtitle-light">
+      ✨ May your life be filled with infinite happiness! ✨
     </div>
   </div>
 
-  <!-- STAGE 3: Musical Vibe -->
-  <div id="stage-3" class="screen">
-    <div class="title-main">Happy Birthday 🎵</div>
-    <div class="subtitle">Princess 👑</div>
-    
-    <div class="music-card">
-      <div style="font-size: 50px; margin-bottom: 10px;">🎶</div>
-      <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Turn on the birthday tune!</p>
-      <button class="btn-play" onclick="playBirthdaySong()">▶ Play Birthday Music</button>
-    </div>
-
-    <button class="btn-next" onclick="goToStage('stage-4')">See Memories ➔</button>
-  </div>
-
-  <!-- STAGE 4: Polaroids Gallery -->
+  <!-- STAGE 4: Magic Crystal Ball -->
   <div id="stage-4" class="screen">
-    <div class="title-main">Sweet Memories 📸</div>
-    <div class="subtitle">Tap on any photo to view!</div>
-
-    <div class="gallery-stack">
-      <div class="polaroid pol-1" onclick="popConfetti()">
-        <img src="./1.jpg" alt="Memory 1">
-        <div class="polaroid-caption">Best Times ✨</div>
-      </div>
-      <div class="polaroid pol-2" onclick="popConfetti()">
-        <img src="./2.jpg" alt="Memory 2">
-        <div class="polaroid-caption">Always Smiling 💖</div>
-      </div>
-      <div class="polaroid pol-3" onclick="popConfetti()">
-        <img src="./3.jpg" alt="Memory 3">
-        <div class="polaroid-caption">Special Moments 🌸</div>
-      </div>
+    <div class="title-gold">Crystal Ball Wishes 🔮</div>
+    <div class="subtitle-light">Tap the Crystal Ball to reveal future blessings</div>
+    
+    <div class="crystal-orb" onclick="revealCrystalWish()">
+      <span style="font-size: 50px;">✨</span>
     </div>
-
-    <button class="btn-next" onclick="goToStage('stage-5')">Read Special Letter 💌</button>
+    
+    <div class="wish-text-box" id="crystalWishBox">Tap the orb...</div>
+    <button class="btn-global" id="crystalNextBtn" style="display: none;" onclick="unlockStage(5)">Continue ➔</button>
   </div>
 
-  <!-- STAGE 5: Birthday Letter -->
+  <!-- STAGE 5: Interactive 3D Polaroid Memory Replay -->
   <div id="stage-5" class="screen">
-    <div class="letter-box">
-      <h3>Happy Birthday</h3>
-      
-      <p>Kabhi kabhi zindagi itni tez guzarti hai ke hum apnon se milna bhool jaate hain, magar kuch log waqt aur faasle ke bawajood dil ke kareeb hi rehte hain.</p>
-      
-      <p>Wishing you the happiest birthday! May this year bring you endless joy, good health, and success in everything you do.</p>
-      
-      <div class="signature">From: Your Friend</div>
+    <div class="title-gold">Unforgettable Moments 📸</div>
+    <div class="subtitle-light">Tap card to see next memory</div>
+    
+    <div class="polaroid-card" id="polaroidBox" onclick="nextPolaroid()">
+      <img id="polaroidImg" src="./1.jpg" alt="Memory">
+      <div class="polaroid-caption" id="polaroidCap">Best Memories Together ✨</div>
     </div>
+    
+    <button class="btn-global" style="margin-top:20px;" onclick="unlockStage(6)">Go to Music Stage 🎵</button>
+  </div>
 
-    <button class="btn-next" style="background: #ff3366;" onclick="goToStage('stage-1')">↺ Replay Surprise</button>
+  <!-- STAGE 6: Musical Vinyl Gramophone -->
+  <div id="stage-6" class="screen">
+    <div class="title-gold">Special Birthday Vibe 🎵</div>
+    <div class="subtitle-light">Spin the record to play your tune</div>
+    
+    <div class="vinyl-wrapper" id="vinylDisc">
+      <div class="vinyl-center">🎶</div>
+    </div>
+    
+    <button class="key-btn" style="margin-top: 15px;" onclick="playVinylMusic()">▶ Spin & Play Music</button>
+    <button class="btn-global" style="margin-top:20px;" onclick="unlockStage(7)">Read Special Message 💌</button>
+  </div>
+
+  <!-- STAGE 7: Grand Letter & Fireworks -->
+  <div id="stage-7" class="screen">
+    <div class="scroll-letter">
+      <h2>Happy Birthday!</h2>
+      <p>Kabhi kabhi zindagi itni tez guzarti hai ke hum apnon se milna bhool jaate hain, magar kuch log waqt aur faasle ke bawajood dil ke kareeb hi rehte hain.</p>
+      <p>Wishing you the happiest birthday! May this year bring you endless success, unbounded laughter, and every beautiful dream you've ever wished for.</p>
+      <div class="from-sign">From: Your Friend</div>
+    </div>
+    
+    <button class="btn-global" style="background: linear-gradient(45deg, #d63031, #ff7675); margin-top:25px;" onclick="unlockStage(1)">↺ Replay Experience</button>
   </div>
 
   <script>
-    // Background Floating Hearts Effect
-    function createHearts() {
-      const container = document.getElementById('heartContainer');
-      const hearts = ['💖', '✨', '🌸', '👑', '🎂'];
-      for(let i=0; i<15; i++) {
-        const heart = document.createElement('div');
-        heart.className = 'heart-particle';
-        heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-        heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
-        container.appendChild(heart);
+    // --- Canvas Starfield & Particle Effect ---
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * -1 - 0.5;
+        this.color = `hsl(${Math.random() * 60 + 300}, 100%, 75%)`;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.y < 0) this.y = canvas.height;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
-    createHearts();
 
-    // Stage Navigation
-    function goToStage(stageId) {
+    for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // --- Navigation Logic ---
+    function unlockStage(stageNum) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(stageId).classList.add('active');
+      document.getElementById(`stage-${stageNum}`).classList.add('active');
+      confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
     }
 
-    // Stage 1: Gift Open Function
-    function openGift() {
-      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-      setTimeout(() => goToStage('stage-2'), 800);
+    // --- Stage 2: Lock Function ---
+    function openLock() {
+      document.getElementById('lockIcon').innerText = '🔓';
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 } });
+      setTimeout(() => unlockStage(3), 1000);
     }
 
-    // Stage 2: Candle Blowing
-    let candlesBlown = 0;
-    function blowCandle(el) {
-      const flame = el.querySelector('.flame');
-      if(!flame.classList.contains('off')) {
+    // --- Stage 3: Candles Blowing ---
+    let candlesOut = 0;
+    function extinguishCandle(el) {
+      const flame = el.querySelector('.flame-light');
+      if (!flame.classList.contains('off')) {
         flame.classList.add('off');
-        candlesBlown++;
-        if(candlesBlown === 4) {
-          confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
-          document.getElementById('wishMessage').style.opacity = '1';
-          setTimeout(() => goToStage('stage-3'), 2000);
+        candlesOut++;
+        if (candlesOut === 4) {
+          document.getElementById('cakeWishText').style.opacity = '1';
+          confetti({ particleCount: 150, spread: 100, origin: { y: 0.5 } });
+          setTimeout(() => unlockStage(4), 2200);
         }
       }
     }
 
-    // Stage 3: Web Audio API Synthesizer Song (Happy Birthday Tune)
-    function playBirthdaySong() {
+    // --- Stage 4: Crystal Ball ---
+    const crystalWishes = [
+      "🌸 You are destined for infinite happiness and success!",
+      "✨ May your smile shine brighter than the stars this year!",
+      "💖 Your kindness makes the world a much warmer place!",
+      "👑 May all your secret prayers come true very soon!"
+    ];
+    let wishIdx = 0;
+    function revealCrystalWish() {
+      document.getElementById('crystalWishBox').innerText = crystalWishes[wishIdx];
+      wishIdx = (wishIdx + 1) % crystalWishes.length;
+      document.getElementById('crystalNextBtn').style.display = 'inline-block';
+      confetti({ particleCount: 30, spread: 40 });
+    }
+
+    // --- Stage 5: Polaroids ---
+    const photos = [
+      { src: "./1.jpg", cap: "Unforgettable Smile ✨" },
+      { src: "./2.jpg", cap: "Precious Moments 🌸" },
+      { src: "./3.jpg", cap: "Golden Memories Forever 💖" }
+    ];
+    let photoIdx = 0;
+    function nextPolaroid() {
+      photoIdx = (photoIdx + 1) % photos.length;
+      const card = document.getElementById('polaroidBox');
+      card.style.transform = 'scale(0.8) rotate(10deg)';
+      setTimeout(() => {
+        document.getElementById('polaroidImg').src = photos[photoIdx].src;
+        document.getElementById('polaroidCap').innerText = photos[photoIdx].cap;
+        card.style.transform = 'scale(1) rotate(0deg)';
+      }, 250);
+      confetti({ particleCount: 30, spread: 50 });
+    }
+
+    // --- Stage 6: Vinyl Music ---
+    let isSpinning = false;
+    function playVinylMusic() {
+      const disc = document.getElementById('vinylDisc');
+      disc.classList.add('spinning');
+      
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       const notes = [
         {f: 264, d: 0.3}, {f: 264, d: 0.3}, {f: 297, d: 0.6}, {f: 264, d: 0.6}, {f: 352, d: 0.6}, {f: 330, d: 1.0},
@@ -348,9 +457,9 @@
       notes.forEach(note => {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-        osc.type = 'sine';
+        osc.type = 'triangle';
         osc.frequency.setValueAtTime(note.f, time);
-        gain.gain.setValueAtTime(0.3, time);
+        gain.gain.setValueAtTime(0.2, time);
         gain.gain.exponentialRampToValueAtTime(0.001, time + note.d);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
@@ -358,13 +467,8 @@
         osc.stop(time + note.d);
         time += note.d + 0.05;
       });
-      
-      confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
-    }
 
-    // Extra Confetti Burst
-    function popConfetti() {
-      confetti({ particleCount: 40, spread: 50 });
+      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
     }
   </script>
 </body>
