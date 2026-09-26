@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Princess ✨</title>
+  <title>Happy Birthday ZoYa ✨</title>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
@@ -20,7 +20,7 @@
       color: #fff;
     }
 
-    /* Floating Particles Background */
+    /* Floating Background Particles */
     #particles-canvas {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -52,7 +52,7 @@
 
     .title-gold {
       font-family: 'Dancing Script', cursive;
-      font-size: 42px;
+      font-size: 44px;
       background: linear-gradient(45deg, #ffeaa7, #fdcb6e, #fff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -70,8 +70,8 @@
     /* Stage 1: Wax Seal Envelope */
     .envelope-wrapper {
       position: relative;
-      width: 260px;
-      height: 180px;
+      width: 270px;
+      height: 185px;
       background: linear-gradient(135deg, #ff7675, #d63031);
       border-radius: 12px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
@@ -82,8 +82,8 @@
       border: 2px solid rgba(255,255,255,0.2);
     }
     .wax-seal {
-      width: 70px;
-      height: 70px;
+      width: 75px;
+      height: 75px;
       background: linear-gradient(135deg, #d63031, #801313);
       border-radius: 50%;
       border: 3px dashed #ff7675;
@@ -105,7 +105,6 @@
       margin-bottom: 20px;
       filter: drop-shadow(0 0 20px #fdcb6e);
       cursor: pointer;
-      transition: transform 0.3s;
     }
     .key-btn {
       background: linear-gradient(45deg, #fdcb6e, #e17055);
@@ -217,11 +216,22 @@
       line-height: 1.8;
       border: 2px solid #ffd1d8;
     }
-    .scroll-letter h2 { font-family: 'Playfair Display', serif; color: #d63031; font-size: 32px; text-align: center; margin-bottom: 12px; }
+    .scroll-letter h2 { font-family: 'Playfair Display', serif; color: #d63031; font-size: 30px; text-align: center; margin-bottom: 12px; }
     .scroll-letter p { font-size: 15px; margin-bottom: 12px; }
+    .highlight-quote {
+      background: rgba(214, 48, 49, 0.08);
+      border-left: 4px solid #d63031;
+      padding: 10px 14px;
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      color: #b2bec3;
+      margin: 12px 0;
+      border-radius: 4px;
+      color: #2d3436;
+    }
     .from-sign { text-align: right; font-family: 'Caveat', cursive; font-size: 28px; color: #d63031; font-weight: bold; margin-top: 15px; }
 
-    /* Global Next Button */
+    /* Global Buttons */
     .btn-global {
       margin-top: 25px;
       padding: 12px 30px;
@@ -239,13 +249,13 @@
 </head>
 <body>
 
-  <!-- Background Particle Canvas -->
+  <!-- Particle Background Canvas -->
   <canvas id="particles-canvas"></canvas>
 
   <!-- STAGE 1: Wax-Sealed Envelope -->
   <div id="stage-1" class="screen active">
-    <div class="title-gold">Top Secret Surprise 👑</div>
-    <div class="subtitle-light">Tap the Wax Seal to Break & Open</div>
+    <div class="title-gold">Happy Birthday ZoYa 👑</div>
+    <div class="subtitle-light">Tap the Wax Seal to Open Your Surprise</div>
     
     <div class="envelope-wrapper" onclick="unlockStage(2)">
       <div class="wax-seal">💌</div>
@@ -254,17 +264,17 @@
 
   <!-- STAGE 2: Golden Magic Lock -->
   <div id="stage-2" class="screen">
-    <div class="title-gold">Unlock The Magic 🔓</div>
-    <div class="subtitle-light">Tap the key to unlock your birthday world</div>
+    <div class="title-gold">Unlock Magic For ZoYa 🔓</div>
+    <div class="subtitle-light">Tap the golden key to turn the lock</div>
     
     <div class="lock-box" id="lockIcon">🔒</div>
     <button class="key-btn" onclick="openLock()">🔑 Turn Golden Key</button>
   </div>
 
-  <!-- STAGE 3: Multi-Layer Cake & Candle Blow -->
+  <!-- STAGE 3: Cake & Candles -->
   <div id="stage-3" class="screen">
-    <div class="title-gold">Make A Wish! 🎂</div>
-    <div class="subtitle-light">Tap each candle to blow it out</div>
+    <div class="title-gold">Blow The Candles ZoYa 🎂</div>
+    <div class="subtitle-light">Tap every candle to make your wish</div>
     
     <div class="cake-container">
       <div class="candles-list">
@@ -279,63 +289,71 @@
     </div>
     
     <div id="cakeWishText" style="opacity: 0; transition: opacity 0.8s;" class="subtitle-light">
-      ✨ May your life be filled with infinite happiness! ✨
+      ✨ May ZoYa's life be filled with endless smiles! ✨
     </div>
   </div>
 
-  <!-- STAGE 4: Magic Crystal Ball -->
+  <!-- STAGE 4: Crystal Ball -->
   <div id="stage-4" class="screen">
-    <div class="title-gold">Crystal Ball Wishes 🔮</div>
-    <div class="subtitle-light">Tap the Crystal Ball to reveal future blessings</div>
+    <div class="title-gold">Crystal Wishes For ZoYa 🔮</div>
+    <div class="subtitle-light">Tap the Magic Orb to reveal blessings</div>
     
     <div class="crystal-orb" onclick="revealCrystalWish()">
       <span style="font-size: 50px;">✨</span>
     </div>
     
-    <div class="wish-text-box" id="crystalWishBox">Tap the orb...</div>
+    <div class="wish-text-box" id="crystalWishBox">Tap the crystal ball...</div>
     <button class="btn-global" id="crystalNextBtn" style="display: none;" onclick="unlockStage(5)">Continue ➔</button>
   </div>
 
-  <!-- STAGE 5: Interactive 3D Polaroid Memory Replay -->
+  <!-- STAGE 5: Polaroid Gallery -->
   <div id="stage-5" class="screen">
-    <div class="title-gold">Unforgettable Moments 📸</div>
-    <div class="subtitle-light">Tap card to see next memory</div>
+    <div class="title-gold">ZoYa's Precious Gallery 📸</div>
+    <div class="subtitle-light">Tap card to see next photo</div>
     
     <div class="polaroid-card" id="polaroidBox" onclick="nextPolaroid()">
       <img id="polaroidImg" src="./1.jpg" alt="Memory">
-      <div class="polaroid-caption" id="polaroidCap">Best Memories Together ✨</div>
+      <div class="polaroid-caption" id="polaroidCap">ZoYa's Most Charming Smile ✨</div>
     </div>
     
     <button class="btn-global" style="margin-top:20px;" onclick="unlockStage(6)">Go to Music Stage 🎵</button>
   </div>
 
-  <!-- STAGE 6: Musical Vinyl Gramophone -->
+  <!-- STAGE 6: Vinyl Gramophone -->
   <div id="stage-6" class="screen">
-    <div class="title-gold">Special Birthday Vibe 🎵</div>
-    <div class="subtitle-light">Spin the record to play your tune</div>
+    <div class="title-gold">Special Tune For ZoYa 🎵</div>
+    <div class="subtitle-light">Spin the record to play birthday melody</div>
     
     <div class="vinyl-wrapper" id="vinylDisc">
       <div class="vinyl-center">🎶</div>
     </div>
     
-    <button class="key-btn" style="margin-top: 15px;" onclick="playVinylMusic()">▶ Spin & Play Music</button>
-    <button class="btn-global" style="margin-top:20px;" onclick="unlockStage(7)">Read Special Message 💌</button>
+    <button class="key-btn" style="margin-top: 15px;" onclick="playVinylMusic()">▶ Spin & Play Melody</button>
+    <button class="btn-global" style="margin-top:20px;" onclick="unlockStage(7)">Read Heartfelt Note 💌</button>
   </div>
 
-  <!-- STAGE 7: Grand Letter & Fireworks -->
+  <!-- STAGE 7: Grand Letter Scroll & Fireworks -->
   <div id="stage-7" class="screen">
     <div class="scroll-letter">
-      <h2>Happy Birthday!</h2>
-      <p>Kabhi kabhi zindagi itni tez guzarti hai ke hum apnon se milna bhool jaate hain, magar kuch log waqt aur faasle ke bawajood dil ke kareeb hi rehte hain.</p>
-      <p>Wishing you the happiest birthday! May this year bring you endless success, unbounded laughter, and every beautiful dream you've ever wished for.</p>
-      <div class="from-sign">From: Your Friend</div>
+      <h2>Dear ZoYa ✨</h2>
+      <p>Tumhare is khass din par dil se ek baat kehna chahta hu...</p>
+      
+      <div class="highlight-quote">
+        "Main wahi dost hu aapka jo kabhi talashne se bhi na mile, kyunki heere ki parakh sirf johri ko hi hoti hai!" 💎✨
+      </div>
+
+      <p>Aapki dosti mere liye bohot anmol hai. Bhagwan kare aapki zindagi me hamesha khushiya, kamyabi aur muskurahat rahe. Kabhi koi gham aapke kareeb na aaye!</p>
+      
+      <p>Stay blessed, stay happy, and always keep shining like a true diamond!</p>
+      
+      <div class="from-sign">Happy Birthday ZoYa! 💖</div>
     </div>
     
     <button class="btn-global" style="background: linear-gradient(45deg, #d63031, #ff7675); margin-top:25px;" onclick="unlockStage(1)">↺ Replay Experience</button>
   </div>
 
   <script>
-    // --- Canvas Starfield & Particle Effect ---
+    // Canvas Particles
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -378,21 +396,21 @@
     }
     animateParticles();
 
-    // --- Navigation Logic ---
+    // Stage Navigation
     function unlockStage(stageNum) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(`stage-${stageNum}`).classList.add('active');
       confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
     }
 
-    // --- Stage 2: Lock Function ---
+    // Stage 2 Lock
     function openLock() {
       document.getElementById('lockIcon').innerText = '🔓';
       confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 } });
       setTimeout(() => unlockStage(3), 1000);
     }
 
-    // --- Stage 3: Candles Blowing ---
+    // Stage 3 Candle Blow
     let candlesOut = 0;
     function extinguishCandle(el) {
       const flame = el.querySelector('.flame-light');
@@ -407,26 +425,26 @@
       }
     }
 
-    // --- Stage 4: Crystal Ball ---
+    // Stage 4 Crystal Orb
     const crystalWishes = [
-      "🌸 You are destined for infinite happiness and success!",
-      "✨ May your smile shine brighter than the stars this year!",
-      "💖 Your kindness makes the world a much warmer place!",
-      "👑 May all your secret prayers come true very soon!"
+      "🌸 ZoYa, May your smile shine brighter than all the stars!",
+      "✨ May all your dreams and wishes come true this year!",
+      "💖 A true diamond like you deserves endless happiness!",
+      "👑 May life always bless ZoYa with success & joy!"
     ];
     let wishIdx = 0;
     function revealCrystalWish() {
       document.getElementById('crystalWishBox').innerText = crystalWishes[wishIdx];
       wishIdx = (wishIdx + 1) % crystalWishes.length;
       document.getElementById('crystalNextBtn').style.display = 'inline-block';
-      confetti({ particleCount: 30, spread: 40 });
+      confetti({ particleCount: 35, spread: 40 });
     }
 
-    // --- Stage 5: Polaroids ---
+    // Stage 5 Polaroids
     const photos = [
-      { src: "./1.jpg", cap: "Unforgettable Smile ✨" },
-      { src: "./2.jpg", cap: "Precious Moments 🌸" },
-      { src: "./3.jpg", cap: "Golden Memories Forever 💖" }
+      { src: "./1.jpg", cap: "ZoYa's Most Charming Smile ✨" },
+      { src: "./2.jpg", cap: "Precious & Unforgettable Memories 🌸" },
+      { src: "./3.jpg", cap: "A Friend Like A Diamond 💖" }
     ];
     let photoIdx = 0;
     function nextPolaroid() {
@@ -441,8 +459,7 @@
       confetti({ particleCount: 30, spread: 50 });
     }
 
-    // --- Stage 6: Vinyl Music ---
-    let isSpinning = false;
+    // Stage 6 Vinyl Music
     function playVinylMusic() {
       const disc = document.getElementById('vinylDisc');
       disc.classList.add('spinning');
